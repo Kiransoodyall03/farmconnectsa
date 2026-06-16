@@ -137,6 +137,14 @@ The AI assistant is configured with a detailed system prompt that ensures:
 **Email:** kiransoodyall03@gmail.com  
 **Institution:** University of the Witwatersrand
 
+**Developer:** Kenna Geleta
+**Email:** kennanemera.web@gmail.com
+**Institution:** University of Pretoria
+
+**Developer:** Abdul Gani
+**Email:** ganiabdul619@gmail.com  
+**Institution:** University of the Witwatersrand
+
 ---
 
 ## 📄 License
