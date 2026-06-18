@@ -12,8 +12,16 @@ export default function Dashboard({ user }) {
   const [chatLogs, setChatLogs] = useState([]);
   const [loading,  setLoading]  = useState(true);
   const [error,    setError]    = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    // Check if we should show the modal automatically
+    const hasSeenModal = localStorage.getItem('hasSeenTestBotModal');
+    if (!hasSeenModal) {
+      setIsModalOpen(true);
+      localStorage.setItem('hasSeenTestBotModal', 'true');
+    }
+
     const fetchLogs = async () => {
       setLoading(true);
       setError('');
@@ -58,6 +66,9 @@ export default function Dashboard({ user }) {
       <header className="dashboard-header">
         <span className="dashboard-header__brand">FarmConnectSA — Dashboard</span>
         <div className="dashboard-header__right">
+          <button className="dashboard-header__btn" onClick={() => setIsModalOpen(true)}>
+            Test Bot
+          </button>
           <span className="dashboard-header__email">{user?.email}</span>
           <button className="dashboard-header__signout" onClick={handleSignOut}>
             Sign out
@@ -138,6 +149,35 @@ export default function Dashboard({ user }) {
           </div>
         )}
       </main>
+
+      {/* ── Modal ───────────────────────────── */}
+      {isModalOpen && (
+        <div className="dashboard-modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="dashboard-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="dashboard-modal__close" onClick={() => setIsModalOpen(false)}>
+              &times;
+            </button>
+            <h2 className="dashboard-modal__title">Test the WhatsApp Bot</h2>
+            <p className="dashboard-modal__desc">
+              Scan the QR code below or send a message to connect your phone to the Twilio sandbox for testing.
+            </p>
+            
+            <div className="dashboard-modal__qr-container">
+              <img 
+                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/14155238886?text=join%20settle-is" 
+                alt="QR Code to connect to WhatsApp Bot" 
+                className="dashboard-modal__qr" 
+              />
+            </div>
+            
+            <div className="dashboard-modal__instructions">
+              <p><strong>1.</strong> Add this number to your contacts: <br/><span className="highlight">+1 (415) 523-8886</span></p>
+              <p><strong>2.</strong> Send this exact message to connect:<br/><span className="highlight code">join settle-is</span></p>
+              <p><strong>3.</strong> Once connected, you can ask the bot farming-related questions!</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

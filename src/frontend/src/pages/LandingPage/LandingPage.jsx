@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/NavBar/NavBar.jsx';
 import Footer from '../../components/Footer/Footer';
 import './LandingPage.css';
+import QRCode from 'react-qr-code';
 
 /* ── Data ─────────────────────────────────────── */
 const TICKER_ITEMS = [
@@ -11,6 +12,9 @@ const TICKER_ITEMS = [
   { number: '60–70%',  label: 'of the informal goat market are small-scale farmers' },
 ];
 
+const twilioNumber = "14155238886"; // Replace with your Twilio number (no +)
+const sandboxPassword = "join settle-is"; // Replace with your sandbox code
+const waLink = `https://wa.me/${twilioNumber}?text=${encodeURIComponent(sandboxPassword)}`;
 const CRISIS_ITEMS = [
   'No reliable access to vaccination schedules or dipping dates',
   'Livestock stolen with a 93.1% chance of never being recovered',
@@ -95,6 +99,49 @@ export default function LandingPage() {
               Eastern Cape · KwaZulu-Natal · Limpopo
             </span>
           </div>
+        </div>
+      </section>
+
+      {/* ── WhatsApp Onboarding ───────────────── */}
+      <section style={{ 
+          backgroundColor: '#f8f9fa', 
+          padding: '4rem 2rem', 
+          textAlign: 'center',
+          borderBottom: '1px solid #e9ecef'
+      }}>
+        <h2 style={{ fontSize: '2rem', color: '#2c3e50', marginBottom: '1rem' }}>
+          Connect to our AI Vet Instantly
+        </h2>
+        <p style={{ color: '#555', maxWidth: '600px', margin: '0 auto 2rem auto', fontSize: '1.1rem' }}>
+          No app downloads. No new accounts. Scan the code below with your phone camera to instantly connect to FarmConnectSA on WhatsApp.
+        </p>
+        
+        <div style={{ 
+            background: 'white', 
+            padding: '1.5rem', 
+            display: 'inline-block', 
+            borderRadius: '16px', 
+            boxShadow: '0 10px 25px rgba(0,0,0,0.05)',
+            marginBottom: '1.5rem'
+        }}>
+          <QRCode value={waLink} size={220} />
+        </div>
+        
+        <div>
+          <p style={{ marginBottom: '0.5rem', color: '#7f8c8d' }}>Viewing on your phone?</p>
+          <a href={waLink} style={{ 
+              display: 'inline-block',
+              backgroundColor: '#25D366', 
+              color: 'white', 
+              padding: '0.75rem 1.5rem', 
+              borderRadius: '50px', 
+              textDecoration: 'none', 
+              fontWeight: 'bold',
+              fontSize: '1.1rem',
+              boxShadow: '0 4px 6px rgba(37, 211, 102, 0.3)'
+          }}>
+            Click here to open WhatsApp
+          </a>
         </div>
       </section>
 
